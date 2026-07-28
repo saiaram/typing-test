@@ -54,7 +54,7 @@ input.addEventListener("input", () => {
     updateStats();
 });
 
-ffunction startTimer() {
+function startTimer() {
     interval = setInterval(() => {
         timer--;
 
