@@ -1,3 +1,5 @@
+const startButton = document.getElementById("startButton");
+
 const quote = document.getElementById("quote");
 const input = document.getElementById("input");
 const timerDisplay = document.getElementById("timer");
@@ -6,25 +8,36 @@ const accuracyDisplay = document.getElementById("accuracy");
 
 let timer = 60;
 let interval;
-let started = false;
 
 let originalText = quote.innerText;
 
-input.addEventListener("input", () => {
-    if (!started) {
-        started = true;
-        startTimer();
-    }
+startButton.addEventListener("click", () => {
+    clearInterval(interval);
 
+    input.disabled = false;
+    input.value = "";
+    input.focus();
+
+    timer = 60;
+    timerDisplay.innerText = timer;
+
+    wpmDisplay.innerText = "0";
+    accuracyDisplay.innerText = "100%";
+
+    startTimer();
+});
+
+input.addEventListener("input", () => {
     updateStats();
 });
 
 function startTimer() {
     interval = setInterval(() => {
         timer--;
+
         timerDisplay.innerText = timer;
 
-        if (timer === 0) {
+        if (timer <= 0) {
             clearInterval(interval);
             input.disabled = true;
         }
@@ -42,7 +55,7 @@ function updateStats() {
         }
     }
 
-    let accuracy = 0;
+    let accuracy = 100;
 
     if (typedText.length > 0) {
         accuracy = Math.round(
@@ -53,9 +66,11 @@ function updateStats() {
     accuracyDisplay.innerText = accuracy + "%";
 
     let wordsTyped = typedText.trim().split(/\s+/).length;
-    let wpm = Math.round(wordsTyped / ((60 - timer) / 60));
 
-    if (timer < 60) {
+    let timeElapsed = (60 - timer) / 60;
+
+    if (timeElapsed > 0) {
+        let wpm = Math.round(wordsTyped / timeElapsed);
         wpmDisplay.innerText = wpm;
     }
 }
