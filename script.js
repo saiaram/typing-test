@@ -1,3 +1,8 @@
+const results = document.getElementById("results");
+const finalWpm = document.getElementById("finalWpm");
+const finalAccuracy = document.getElementById("finalAccuracy");
+const finalCharacters = document.getElementById("finalCharacters");
+
 const startButton = document.getElementById("startButton");
 
 const quote = document.getElementById("quote");
@@ -9,7 +14,20 @@ const accuracyDisplay = document.getElementById("accuracy");
 let timer = 60;
 let interval;
 
-let originalText = quote.innerText;
+const quotes = [
+    "The crowd erupts as the champion raises the title high above the ring.",
+    "The lights go dark and the arena waits for the superstar to make their entrance.",
+    "The referee counts the pinfall as thousands of fans watch the final moment.",
+    "A true champion never gives up when the pressure reaches its highest point.",
+    "The road to WrestleMania is filled with rivalries, surprises, and unforgettable moments.",
+    "The superstar climbs the turnbuckle and celebrates in front of the WWE Universe.",
+    "Every great match tells a story of determination, resilience, and heart.",
+    "The bell rings and two competitors prepare for a battle inside the squared circle.",
+    "The championship represents years of sacrifice, dedication, and hard work.",
+    "The greatest performers create moments that fans remember forever."
+];
+
+let originalText = "";
 
 startButton.addEventListener("click", () => {
     clearInterval(interval);
@@ -17,6 +35,11 @@ startButton.addEventListener("click", () => {
     input.disabled = false;
     input.value = "";
     input.focus();
+
+    let randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+    quote.innerText = randomQuote;
+    originalText = randomQuote;
 
     timer = 60;
     timerDisplay.innerText = timer;
@@ -38,8 +61,11 @@ function startTimer() {
         timerDisplay.innerText = timer;
 
         if (timer <= 0) {
-            clearInterval(interval);
-            input.disabled = true;
+        clearInterval(interval);
+        input.disabled = true;
+
+        showResults();
+}
         }
     }, 1000);
 }
@@ -73,4 +99,11 @@ function updateStats() {
         let wpm = Math.round(wordsTyped / timeElapsed);
         wpmDisplay.innerText = wpm;
     }
+}
+function showResults() {
+    results.classList.remove("hidden");
+
+    finalWpm.innerText = wpmDisplay.innerText;
+    finalAccuracy.innerText = accuracyDisplay.innerText;
+    finalCharacters.innerText = input.value.length;
 }

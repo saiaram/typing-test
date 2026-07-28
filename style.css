@@ -58,3 +58,23 @@ button {
 button:hover {
     opacity: 0.8;
 }
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+.current {
+    text-decoration: underline;
+}
+.hidden {
+    display: none;
+}
+
+#results {
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 12px;
+    background: #222;
+}
