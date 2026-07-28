@@ -54,21 +54,21 @@ input.addEventListener("input", () => {
     updateStats();
 });
 
-function startTimer() {
+ffunction startTimer() {
     interval = setInterval(() => {
         timer--;
 
         timerDisplay.innerText = timer;
 
         if (timer <= 0) {
-        clearInterval(interval);
-        input.disabled = true;
+            clearInterval(interval);
+            input.disabled = true;
 
-        showResults();
-}
+            showResults();
         }
     }, 1000);
 }
+
 
 function updateStats() {
     let typedText = input.value;
